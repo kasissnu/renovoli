@@ -1,0 +1,75 @@
+<html>
+<head>
+    <title>Renovoli - Interior Firm Agency</title>
+    <link rel="stylesheet" href="booking.css" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="header">
+        <a href="index.html">
+            <img src="images/dark-removebg-preview.png" alt="Renovoli Logo">
+        </a>
+    </div>
+
+    <div class="headline">
+        <h1><span class="line1">20+ Interior Firms.</span> <span class="line2">₹5Cr/mo Revenue.</span></h1>
+        <h4>We don't do generic marketing. We scale interior firms from ₹15-30L to ₹1Cr monthly revenue</h4>
+    </div>
+
+    <div class="body">
+        <h2>Book a call with us below</h2>
+        <form class="booking" action="/submit" method="POST">
+
+            <div class="form-row">
+                <label for="full_name">Full Name:</label>
+                <input type="text" id="full_name" name="full_name" required>
+            </div>
+
+            <div class="form-row">
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required
+                    title="Please enter a 10-digit number">
+            </div>
+
+            <div class="form-row">
+                <label for="company">Company:</label>
+                <input type="text" id="company" name="company" required>
+            </div>
+
+            <div class="form-row">
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" required>
+            </div>
+
+            <div class="form-row">
+                <label class="section-label">Current Monthly Revenue:</label>
+                <div class="radio-row" required>
+                    <label><input type="radio" name="current_revenue" value="<10L" required> Less than ₹10L</label>
+                    <label><input type="radio" name="current_revenue" value="10-30L"> ₹10-30L</label>
+                    <label><input type="radio" name="current_revenue" value="30-50L"> ₹30-50L</label>
+                    <label><input type="radio" name="current_revenue" value="50L-1Cr"> ₹50L-1Cr</label>
+                    <label><input type="radio" name="current_revenue" value="1Cr+"> ₹1Cr+</label>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <label class="section-label">Target Monthly Revenue:</label>
+                <div class="radio-row" required>
+                    <label><input type="radio" name="target_revenue" value="10-30L" required> ₹10-30L</label>
+                    <label><input type="radio" name="target_revenue" value="30-50L"> ₹30-50L</label>
+                    <label><input type="radio" name="target_revenue" value="50L-1Cr"> ₹50L-1Cr</label>
+                    <label><input type="radio" name="target_revenue" value="1Cr+"> ₹1Cr+</label>
+                </div>
+            </div>
+
+            <input type="submit" value="Submit">
+        </form>
+
+    </div>
+    
+    <div class="footer">
+        <p>Copyright © 2025 Renovoli. All rights reserved.</p>
+        <p><a href="">Privacy Policy</a> | <a href="">Terms of Service</a></p>
+    </div>
+</body>
+</html>
