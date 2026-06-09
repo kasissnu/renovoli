@@ -464,6 +464,11 @@ footer {
   const selected = packages[key] || packages.scale;
   const summary = document.getElementById("packageSummary");
   const paymentButton = document.getElementById("paymentButton");
+  const confirmationUrl = new URL("confirmation.html", window.location.href);
+  confirmationUrl.searchParams.set("package", key);
+  if (industry) {
+    confirmationUrl.searchParams.set("industry", industry);
+  }
 
   document.getElementById("packageName").textContent = selected.name;
   document.getElementById("packagePrice").textContent = selected.price;
@@ -478,11 +483,14 @@ footer {
     document.getElementById("paymentCopy").textContent = "Start the trial, see the lead flow, then choose your monthly package after 15 days.";
   }
 
-  paymentButton.href = selected.razorpay;
+  const razorpayUrl = new URL(selected.razorpay);
+  razorpayUrl.searchParams.set("callback_url", confirmationUrl.href);
+  razorpayUrl.searchParams.set("callback_method", "get");
+  paymentButton.href = razorpayUrl.href;
   paymentButton.addEventListener("click", (event) => {
     if (selected.razorpay.startsWith("YOUR_RAZORPAY")) {
       event.preventDefault();
-      window.location.href = `confirmation.html?package=${encodeURIComponent(key)}&industry=${encodeURIComponent(industry)}`;
+      window.location.href = confirmationUrl.href;
     }
   });
 
