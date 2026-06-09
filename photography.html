@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="assets/renovoli-logo-transparent.png" />
   <title>Lead Generation for Wedding Photographers | Renovoli</title>
   <meta name="description" content="Renovoli helps wedding photographers generate better couple enquiries, more booking calls and a predictable lead flow beyond Instagram referrals." />
   <meta name="robots" content="index, follow" />
@@ -34,6 +36,23 @@
     "url": "https://www.renovoli.com/photography.html"
   }
   </script>
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '488545933661241');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=488545933661241&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
   <style>
 /* =========================
    RENOVOLI WEBSITE STYLE
@@ -95,9 +114,15 @@ header {
 }
 
 .logo {
-  font-size: 23px;
-  font-weight: 900;
-  letter-spacing: -0.05em;
+  display: inline-flex;
+  align-items: center;
+  width: 150px;
+}
+
+.logo img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 section {
@@ -417,11 +442,14 @@ footer {
 }
 
 .footer-brand {
-  color: var(--text);
-  font-size: 20px;
-  font-weight: 900;
-  letter-spacing: -0.05em;
+  width: 142px;
   margin-bottom: 8px;
+}
+
+.footer-brand img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .footer-address {
@@ -500,7 +528,7 @@ footer {
 
 <header>
   <div class="container nav">
-    <a href="index.html" class="logo">renovoli</a>
+    <a href="index.html" class="logo" aria-label="Renovoli home"><img src="assets/renovoli-wordmark-transparent.png" alt="Renovoli" width="324" height="120" /></a>
   </div>
 </header>
 
@@ -597,7 +625,7 @@ footer {
   <div class="container">
     <div class="footer-simple">
       <div>
-        <div class="footer-brand">renovoli</div>
+        <div class="footer-brand"><img src="assets/renovoli-wordmark-transparent.png" alt="Renovoli" width="324" height="120" /></div>
       </div>
       <div class="footer-page-links">
         <a href="index.html">Home</a>

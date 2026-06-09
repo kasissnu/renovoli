@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="assets/renovoli-logo-transparent.png" />
   <title>Terms &amp; Conditions | Renovoli</title>
   <meta name="description" content="Read Renovoli's terms and conditions for lead generation services, payments, campaign management and onboarding." />
   <meta name="robots" content="index, follow" />
@@ -14,6 +16,23 @@
   <meta property="og:title" content="Terms &amp; Conditions | Renovoli" />
   <meta property="og:description" content="Terms for Renovoli lead generation services, payments and onboarding." />
   <meta property="og:url" content="https://www.renovoli.com/terms.html" />
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '488545933661241');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=488545933661241&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
   <style>
 * {
   margin: 0;
@@ -57,9 +76,15 @@ header {
 }
 
 .logo {
-  font-size: 23px;
-  font-weight: 900;
-  letter-spacing: -0.05em;
+  display: inline-flex;
+  align-items: center;
+  width: 150px;
+}
+
+.logo img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 section {
@@ -117,11 +142,14 @@ footer {
 }
 
 .footer-brand {
-  color: var(--text);
-  font-size: 20px;
-  font-weight: 900;
-  letter-spacing: -0.05em;
+  width: 142px;
   margin-bottom: 8px;
+}
+
+.footer-brand img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .footer-address {
@@ -172,7 +200,7 @@ footer {
 
 <header>
   <div class="container">
-    <a href="index.html" class="logo">renovoli</a>
+    <a href="index.html" class="logo" aria-label="Renovoli home"><img src="assets/renovoli-wordmark-transparent.png" alt="Renovoli" width="324" height="120" /></a>
   </div>
 </header>
 
@@ -206,7 +234,7 @@ footer {
   <div class="container">
     <div class="footer-simple">
       <div>
-        <div class="footer-brand">renovoli</div>
+        <div class="footer-brand"><img src="assets/renovoli-wordmark-transparent.png" alt="Renovoli" width="324" height="120" /></div>
       </div>
       <div class="footer-page-links">
         <a href="index.html">Home</a>
