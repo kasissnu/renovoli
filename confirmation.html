@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Renovoli | Lead Generation Systems</title>
+  <title>Renovoli | Booking Confirmed</title>
   <style>
 /* =========================
    RENOVOLI WEBSITE STYLE
@@ -75,7 +75,7 @@ section {
 }
 
 .hero {
-  min-height: auto;
+  min-height: calc(100vh - 78px);
   display: flex;
   align-items: center;
 }
@@ -234,7 +234,7 @@ p {
 .card {
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 24px;
   padding: 28px;
 }
 
@@ -261,14 +261,14 @@ p {
 .steps {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  gap: 14px;
 }
 
 .step {
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 28px;
+  border-radius: 22px;
+  padding: 24px;
 }
 
 .step span {
@@ -340,48 +340,6 @@ footer {
   font-size: 14px;
 }
 
-.simple-hero {
-  min-height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  max-width: 860px;
-  padding: 108px 0 96px;
-}
-
-.simple-hero h1 {
-  margin-bottom: 28px;
-}
-
-.simple-hero .btn {
-  margin-top: 36px;
-}
-
-.simple-hero h1 span {
-  display: block;
-}
-
-.proof-strip {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-}
-
-.proof {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 28px;
-}
-
-.proof strong {
-  display: block;
-  font-size: 36px;
-  line-height: 1;
-  letter-spacing: -0.06em;
-  margin-bottom: 10px;
-}
-
 .footer-simple {
   display: grid;
   grid-template-columns: 1fr 0.9fr 1.3fr auto;
@@ -435,56 +393,15 @@ footer {
 }
 
 @media (max-width: 900px) {
-  header {
-    padding: 18px 0;
-  }
-
   .hero {
     min-height: auto;
-    padding: 46px 0 56px;
-    align-items: flex-start;
-  }
-
-  .simple-hero {
-    min-height: auto;
-    justify-content: flex-start;
-    max-width: 560px;
-    padding: 0;
-  }
-
-  .simple-hero .eyebrow {
-    font-size: 11px;
-    line-height: 1.35;
-    letter-spacing: 0.16em;
-    margin-bottom: 22px;
-  }
-
-  .simple-hero h1 {
-    font-size: clamp(42px, 12vw, 64px);
-    line-height: 0.94;
-    letter-spacing: -0.075em;
-    margin-bottom: 26px;
-  }
-
-  .simple-hero p {
-    font-size: 20px;
-    line-height: 1.42;
-    max-width: 520px;
-  }
-
-  .simple-hero .btn {
-    width: 100%;
-    max-width: 540px;
-    margin-top: 38px;
-    padding: 17px 22px;
-    text-align: center;
+    padding: 70px 0;
   }
 
   .choice-grid,
   .grid-2,
   .cards,
   .steps,
-  .proof-strip,
   .footer-simple {
     grid-template-columns: 1fr;
   }
@@ -505,81 +422,41 @@ footer {
 </header>
 
 <section class="hero">
-  <div class="container center simple-hero">
-    <div class="eyebrow">For businesses that want leads</div>
-    <h1>
-      <span>No waiting for referrals.</span>
-      <span>More leads.</span>
-      <span>More revenue.</span>
-    </h1>
+  <div class="container center">
+    <div class="eyebrow">Payment next step</div>
+    <h1>Your payment is complete.</h1>
     <p>
-      Stop operating like a small business waiting on referrals. Control your lead source,
-      know where your next clients come from, and scale with a system.
+      Contact our team with your business details. Onboarding starts after payment confirmation.
     </p>
-    <a href="video.html" class="btn">Watch How It Works</a>
+
+    <a
+      href="https://wa.me/919611543012?text=Hi%2C%20I%20have%20paid%20for%20my%20Renovoli%20package%20and%20want%20to%20complete%20onboarding."
+      class="btn"
+    >
+      Contact Our Team
+    </a>
   </div>
 </section>
 
 <section>
   <div class="container">
-    <div class="section-head center">
-      <div class="eyebrow">Proof</div>
-      <h2>Experience your next agency should have.</h2>
-    </div>
-
-    <div class="proof-strip">
-      <div class="proof">
-        <strong>₹10L+ /m</strong>
-        <p>Ad spend for clients.</p>
-      </div>
-      <div class="proof">
-        <strong>₹2cr+ /m</strong>
-        <p>Revenue generated for clients.</p>
-      </div>
-      <div class="proof">
-        <strong>10x</strong>
-        <p>ROAS from performance-led campaigns.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="container">
-    <div class="section-head">
-      <div class="eyebrow">The system</div>
-      <h2>Lead generation. Funneling. Sales.</h2>
-      <p>
-        Traffic is easy. Enquiries that your team can follow up, qualify and close are what matter.
-      </p>
-    </div>
-
     <div class="steps">
       <div class="step">
         <span>01</span>
-        <h3>Lead generation</h3>
-        <p>Campaigns built to bring serious enquiries from your target market.</p>
+        <h3>Payment complete</h3>
+        <p>Your Razorpay payment has started the setup flow.</p>
       </div>
       <div class="step">
         <span>02</span>
-        <h3>Funneling</h3>
-        <p>Forms, WhatsApp, retargeting and tracking before leads go cold.</p>
+        <h3>Contact our team</h3>
+        <p>Share your name, business type and selected package.</p>
       </div>
       <div class="step">
         <span>03</span>
-        <h3>Sales</h3>
-        <p>Clearer conversations, faster follow-ups and better closing chances.</p>
+        <h3>Start onboarding</h3>
+        <p>Send portfolio, target cities, offers and sales details.</p>
       </div>
     </div>
-  </div>
-</section>
-
-<section>
-  <div class="container center">
-    <div class="eyebrow">Start here</div>
-    <h2>Watch before you spend again.</h2>
-    <p>See the proof, understand the funnel, then choose a package.</p>
-    <a href="video.html" class="btn">Watch How It Works</a>
   </div>
 </section>
 
