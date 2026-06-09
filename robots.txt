@@ -3,4 +3,4 @@ Allow: /
 Disallow: /payment.html
 Disallow: /confirmation.html
 
-Sitemap: https://kasissnu.github.io/renovoli/sitemap.xml
+Sitemap: https://www.renovoli.com/sitemap.xml
