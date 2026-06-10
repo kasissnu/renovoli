@@ -85,8 +85,6 @@
       const packageKey = getPackageKey();
       const packagePayload = getPackagePayload(packageKey);
 
-      track("Purchase", packagePayload);
-
       if (packageKey === "trial") {
         track("StartTrial", packagePayload);
       } else {
