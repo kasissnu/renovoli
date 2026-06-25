@@ -17,6 +17,11 @@
     "": ["Renovoli Home", "Lead generation agency"],
     "index.html": ["Renovoli Home", "Lead generation agency"],
     "interiors.html": ["Interior Designers & Architects", "Industry landing page"],
+    "interior-designers-funnel.html": ["Interior Designer Training Opt-in", "Ad funnel"],
+    "interior-designers-training.html": ["Interior Designer Training", "Ad funnel"],
+    "interior-designers-application.html": ["Interior Designer Application", "Ad funnel"],
+    "strategy-call.html": ["Interior Designer Strategy Call", "Ad funnel"],
+    "waitlist.html": ["Interior Designer Waitlist", "Ad funnel"],
     "photography.html": ["Wedding Photographers", "Industry landing page"],
     "video.html": ["Lead Funnel Video", "Funnel proof"],
     "packages.html": ["Renovoli Packages", "Pricing"]

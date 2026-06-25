@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="assets/renovoli-logo-transparent.png" />
+  <title>Schedule Your Call | Renovoli</title>
+  <meta name="description" content="Schedule a strategy call for the interior designer funnel." />
+  <meta name="robots" content="noindex, follow" />
+  <meta name="theme-color" content="#f5f0e7" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Renovoli" />
+  <meta property="og:title" content="Schedule Your Call" />
+  <meta property="og:description" content="Qualified applicants can schedule a strategy call." />
+  <meta property="og:image" content="https://www.renovoli.com/assets/result-pentagram.png" />
+  <link rel="stylesheet" href="assets/funnel.css" />
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '488545933661241');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=488545933661241&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+  <script src="assets/meta-events.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="index.html" class="logo" aria-label="Renovoli home"><img src="assets/renovoli-wordmark-transparent.png" alt="Renovoli" width="324" height="120" /></a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container center narrow">
+    <div class="eyebrow">Schedule</div>
+    <h1>Book your strategy call if the fit is right.</h1>
+    <p>
+      The calendar URL is empty for now. This page still captures the fit details
+      so you can wire Calendly in later without changing the funnel structure.
+    </p>
+    <form class="panel form-grid" data-schedule-form>
+      <div class="field">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" autocomplete="name" required />
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required />
+      </div>
+      <div class="field">
+        <label for="phone">Phone / WhatsApp</label>
+        <input id="phone" name="phone" type="tel" autocomplete="tel" required />
+      </div>
+      <div class="field">
+        <label for="city">City served</label>
+        <input id="city" name="city" type="text" required />
+      </div>
+      <div class="field">
+        <label for="role">Business type</label>
+        <select id="role" name="role" required>
+          <option value="">Select one</option>
+          <option>Interior designer</option>
+          <option>Architect</option>
+          <option>Design-build studio</option>
+          <option>Contractor</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="averageProjectValue">Average project value</label>
+        <select id="averageProjectValue" name="averageProjectValue" required>
+          <option value="">Select one</option>
+          <option value="500000">Below Rs. 10L</option>
+          <option value="1000000">Rs. 10L - Rs. 25L</option>
+          <option value="2500000">Rs. 25L - Rs. 50L</option>
+          <option value="5000000">Rs. 50L+</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="monthlyAdBudget">Comfortable monthly ad budget</label>
+        <select id="monthlyAdBudget" name="monthlyAdBudget" required>
+          <option value="">Select one</option>
+          <option value="10000">Below Rs. 30k</option>
+          <option value="30000">Rs. 30k - Rs. 60k</option>
+          <option value="60000">Rs. 60k - Rs. 1L</option>
+          <option value="100000">Rs. 1L+</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="timeline">Timeline</label>
+        <select id="timeline" name="timeline" required>
+          <option value="">Select one</option>
+          <option>Immediately</option>
+          <option>This month</option>
+          <option>Next 2-3 months</option>
+          <option>Just researching</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="notes">Anything we should know?</label>
+        <textarea id="notes" name="notes"></textarea>
+      </div>
+      <button class="btn full" type="submit" data-calendly-link>Request Schedule</button>
+      <div class="microcopy">Once Calendly is added in <code>assets/funnel.js</code>, this button can send qualified leads there directly.</div>
+      <div class="notice" data-schedule-note></div>
+    </form>
+    <div class="disclaimer">
+      Good fit usually means you already serve premium homeowners, can handle more calls,
+      and have enough ad budget to test the system properly. Weak-fit leads should be routed elsewhere.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-row">
+    <span>© 2026 Renovoli. All rights reserved.</span>
+    <a href="terms.html">Terms &amp; Conditions</a>
+  </div>
+</footer>
+
+<script src="assets/funnel.js"></script>
+</body>
+</html>
