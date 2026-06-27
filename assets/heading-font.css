@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap");
+
+:root {
+  --heading-font: "Oswald", "Arial Narrow", Impact, Haettenschweiler, "Franklin Gothic Condensed", Arial, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--heading-font) !important;
+}

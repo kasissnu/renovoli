@@ -15,6 +15,7 @@
   <meta property="og:description" content="Qualified applicants can schedule a strategy call." />
   <meta property="og:image" content="https://www.renovoli.com/assets/result-pentagram.png" />
   <link rel="stylesheet" href="assets/funnel.css" />
+  <link rel="stylesheet" href="assets/heading-font.css" />
   <!-- Meta Pixel Code -->
   <script>
   !function(f,b,e,v,n,t,s)
@@ -34,11 +35,11 @@
   <!-- End Meta Pixel Code -->
   <script src="assets/meta-events.js"></script>
 </head>
-<body>
+<body class="funnel-page">
 
 <header>
   <div class="container nav">
-    <a href="index.html" class="logo" aria-label="Renovoli home"><img src="assets/renovoli-wordmark-transparent.png" alt="Renovoli" width="324" height="120" /></a>
+    <a href="index.html" class="logo" aria-label="Renovoli home"><img src="assets/funnel-logo-dark.png" alt="Renovoli" width="320" height="320" /></a>
   </div>
 </header>
 
@@ -47,21 +48,21 @@
     <div class="eyebrow">Schedule</div>
     <h1>Book your strategy call if the fit is right.</h1>
     <p>
-      The calendar URL is empty for now. This page still captures the fit details
-      so you can wire Calendly in later without changing the funnel structure.
+      Answer a few quick questions first. We use these to filter out weak-fit leads before they
+      take a slot on the calendar, so the call is worth both our time.
     </p>
     <form class="panel form-grid" data-schedule-form>
       <div class="field">
         <label for="name">Name</label>
-        <input id="name" name="name" type="text" autocomplete="name" required />
+        <input id="name" name="name" type="text" autocomplete="name" spellcheck="false" required />
       </div>
       <div class="field">
         <label for="email">Email</label>
-        <input id="email" name="email" type="email" autocomplete="email" required />
+        <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required />
       </div>
       <div class="field">
         <label for="phone">Phone / WhatsApp</label>
-        <input id="phone" name="phone" type="tel" autocomplete="tel" required />
+        <input id="phone" name="phone" type="tel" autocomplete="tel-national" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" required />
       </div>
       <div class="field">
         <label for="city">City served</label>
@@ -112,14 +113,16 @@
         <label for="notes">Anything we should know?</label>
         <textarea id="notes" name="notes"></textarea>
       </div>
-      <button class="btn full" type="submit" data-calendly-link>Request Schedule</button>
-      <div class="microcopy">Once Calendly is added in <code>assets/funnel.js</code>, this button can send qualified leads there directly.</div>
+      <button class="btn full" type="submit">Unlock The Calendar</button>
+      <div class="microcopy">Once submitted, pick a time below. We're dealing with high call volume right now — only book if you can attend.</div>
       <div class="notice" data-schedule-note></div>
     </form>
-    <div class="disclaimer">
-      Good fit usually means you already serve premium homeowners, can handle more calls,
-      and have enough ad budget to test the system properly. Weak-fit leads should be routed elsewhere.
-    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="panel calendly-wrap" data-calendly-frame></div>
   </div>
 </section>
 
