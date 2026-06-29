@@ -60,6 +60,7 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.5;
+  overflow-x: hidden;
 }
 
 a {
@@ -68,7 +69,7 @@ a {
 }
 
 .container {
-  width: 92%;
+  width: min(92%, calc(100% - 32px));
   max-width: 1120px;
   margin: auto;
 }
@@ -92,7 +93,7 @@ header {
 .logo {
   display: inline-flex;
   align-items: center;
-  width: 150px;
+  width: clamp(124px, 22vw, 150px);
 }
 
 .logo img {
@@ -127,9 +128,9 @@ section {
 }
 
 h1 {
-  font-size: clamp(44px, 7vw, 88px);
-  line-height: 0.92;
-  letter-spacing: -0.075em;
+  font-size: clamp(38px, 7vw, 82px);
+  line-height: 0.96;
+  letter-spacing: -0.055em;
   margin-bottom: 24px;
 }
 
@@ -291,7 +292,7 @@ p {
 
 .steps {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
 }
 
@@ -442,6 +443,63 @@ footer {
 
   section {
     padding: 62px 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    width: min(92%, calc(100% - 24px));
+  }
+
+  header {
+    padding: 16px 0;
+  }
+
+  section {
+    padding: 42px 0;
+  }
+
+  .hero {
+    padding: 54px 0 44px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    line-height: 1.35;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: 38px;
+    letter-spacing: -0.035em;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  .btn {
+    display: block;
+    margin: 24px auto 0;
+    max-width: 320px;
+    padding: 14px 18px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .step {
+    border-radius: 16px;
+    padding: 20px;
+  }
+
+  .footer-simple {
+    gap: 18px;
   }
 }
 
