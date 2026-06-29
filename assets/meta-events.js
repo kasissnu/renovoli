@@ -14,8 +14,11 @@
   };
 
   const pageContent = {
-    "": ["Renovoli Home", "Lead generation agency"],
-    "index.html": ["Renovoli Home", "Lead generation agency"],
+    "": ["Interior Designer Opt-in", "Ad funnel"],
+    "index.html": ["Interior Designer Opt-in", "Ad funnel"],
+    "vsl": ["Interior Designer Training", "Ad funnel"],
+    "schedule": ["Interior Designer Strategy Call", "Ad funnel"],
+    "thank-you": ["Interior Designer Thank You", "Ad funnel"],
     "interiors.html": ["Interior Designers & Architects", "Industry landing page"],
     "interior-designers-funnel.html": ["Interior Designer Training Opt-in", "Ad funnel"],
     "interior-designers-training.html": ["Interior Designer Training", "Ad funnel"],

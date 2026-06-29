@@ -261,10 +261,7 @@
     personalizeGreeting();
 
     document.querySelectorAll("[data-calendly-link]").forEach(function (link) {
-      if (config.calendlyUrl && !config.calendlyUrl.includes("YOUR_HANDLE")) {
-        link.href = config.calendlyUrl;
-      }
-
+      link.href = "/schedule";
       link.addEventListener("click", function () {
         track("Schedule", {
           content_name: "Interior designer strategy call",
@@ -304,7 +301,7 @@
         });
 
         postIfConfigured(config.optinEndpoint, data).finally(function () {
-          window.location.href = "interior-designers-training.html";
+          window.location.href = "/vsl";
         });
       });
     }
