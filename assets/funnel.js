@@ -32,6 +32,20 @@
     }
   }
 
+  function hasTrackedScheduleConversion() {
+    try {
+      return window.sessionStorage.getItem("renovoliScheduleConversionTracked") === "1";
+    } catch (err) {
+      return false;
+    }
+  }
+
+  function markScheduleConversionTracked() {
+    try {
+      window.sessionStorage.setItem("renovoliScheduleConversionTracked", "1");
+    } catch (err) {}
+  }
+
   function serializeForm(form) {
     return Object.fromEntries(new FormData(form).entries());
   }
@@ -260,10 +274,18 @@
     renderTestimonials();
     personalizeGreeting();
 
+    if (getPageName() === "thank-you" && getParams().get("scheduled") === "1" && !hasTrackedScheduleConversion()) {
+      track("Schedule", {
+        content_name: "Interior designer strategy call",
+        content_category: "Interior Designers & Architects"
+      });
+      markScheduleConversionTracked();
+    }
+
     document.querySelectorAll("[data-calendly-link]").forEach(function (link) {
       link.href = "/schedule";
       link.addEventListener("click", function () {
-        track("Schedule", {
+        track("InitiateCheckout", {
           content_name: "Interior designer strategy call",
           content_category: "Interior Designers & Architects"
         });

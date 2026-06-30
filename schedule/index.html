@@ -82,7 +82,7 @@
     if (typeof event.origin === "string" && event.origin.indexOf("calendly.com") === -1) return;
 
     if (event.data.event === "calendly.event_scheduled") {
-      window.location.href = "/thank-you";
+      window.location.href = "/thank-you?scheduled=1";
     }
   });
 </script>
