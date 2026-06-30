@@ -830,6 +830,11 @@ footer {
   text-align: left;
 }
 
+.funnel-grid--optin-only {
+  grid-template-columns: minmax(320px, 560px);
+  margin-top: 58px;
+}
+
 .media-panel {
   text-align: center;
 }
