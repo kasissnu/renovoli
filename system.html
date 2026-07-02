@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Renovoli — System Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f3f0;
+    --grid:#e4e2dc;
+    --ink:#17181a;
+    --ink-dim:#5a5c63;
+    --ink-faint:#9a9ca3;
+    --card:#ffffff;
+    --line:#e2e0d9;
+    --green:#2f8f5b;
+    --green-bg:#e8f5ee;
+    --red:#d64545;
+    --red-bg:#fbe9e9;
+    --amber:#c98a2c;
+    --amber-bg:#faf1e2;
+    --navy:#2d3a52;
+    --navy-bg:#eaeef4;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    height:100%;
+    overflow:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ===== TOP BAR ===== */
+  .topbar{
+    position:fixed;
+    top:0;left:0;right:0;
+    height:56px;
+    background:#fff;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+    z-index:100;
+  }
+  .tb-left{display:flex;align-items:center;gap:14px;}
+  .wordmark{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:20px;
+    letter-spacing:.06em;
+  }
+  .wordmark span{color:var(--green);}
+  .doc-title{
+    font-size:13px;
+    color:var(--ink-dim);
+    padding-left:14px;
+    border-left:1px solid var(--line);
+  }
+  .tb-right{display:flex;align-items:center;gap:10px;}
+  .zoom-controls{
+    display:flex;
+    align-items:center;
+    gap:2px;
+    background:var(--bg);
+    border-radius:8px;
+    padding:4px;
+    border:1px solid var(--line);
+  }
+  .zoom-btn{
+    width:30px;height:30px;
+    border:none;
+    background:transparent;
+    border-radius:6px;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+    color:var(--ink-dim);
+    font-size:16px;
+  }
+  .zoom-btn:hover{background:#fff;color:var(--ink);}
+  .zoom-pct{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;
+    color:var(--ink-dim);
+    width:42px;
+    text-align:center;
+  }
+  .reset-btn{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;
+    color:var(--ink-dim);
+    background:var(--bg);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:8px 12px;
+    cursor:pointer;
+  }
+  .reset-btn:hover{color:var(--ink); border-color:var(--ink-faint);}
+
+  /* ===== CANVAS ===== */
+  .viewport{
+    position:absolute;
+    top:56px;left:0;right:0;bottom:0;
+    overflow:hidden;
+    cursor:grab;
+    background-image:radial-gradient(circle, var(--grid) 1.4px, transparent 1.4px);
+    background-size:26px 26px;
+  }
+  .viewport.grabbing{cursor:grabbing;}
+  .canvas{
+    position:absolute;
+    top:0;left:0;
+    width:3400px;
+    height:3350px;
+    transform-origin:0 0;
+    transition:transform .05s linear;
+  }
+
+  /* ===== BOARD TITLE ===== */
+  .board-title{
+    position:absolute;
+    top:60px; left:60px;
+    display:flex;
+    align-items:baseline;
+    gap:20px;
+  }
+  .board-title .display{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:56px;
+    letter-spacing:.01em;
+    line-height:1;
+  }
+  .board-title .sub{
+    font-size:14px;
+    color:var(--ink-dim);
+    max-width:340px;
+    line-height:1.5;
+    padding-bottom:4px;
+  }
+
+  /* ===== PILLAR HEADERS ===== */
+  .pillar-header{
+    position:absolute;
+    padding:8px 18px;
+    border-radius:8px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    white-space:nowrap;
+  }
+  .ph-green{background:var(--green);color:#fff;}
+  .ph-navy{background:var(--navy);color:#fff;}
+  .ph-amber{background:var(--amber);color:#fff;}
+  .ph-red{background:var(--red);color:#fff;}
+
+  .pillar-line{
+    position:absolute;
+    width:1px;
+    background:var(--line);
+  }
+
+  /* ===== CARDS ===== */
+  .card{
+    position:absolute;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:16px 18px;
+    box-shadow:0 1px 3px rgba(0,0,0,.04);
+  }
+  .card .k{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    margin-bottom:8px;
+    display:block;
+  }
+  .card h5{
+    font-size:15px;
+    font-weight:700;
+    margin-bottom:6px;
+    line-height:1.3;
+  }
+  .card p{
+    font-size:12.5px;
+    color:var(--ink-dim);
+    line-height:1.5;
+  }
+  .card ul{list-style:none; margin-top:4px;}
+  .card li{
+    font-size:12.5px;
+    color:var(--ink-dim);
+    padding:2px 0 2px 14px;
+    position:relative;
+    line-height:1.5;
+  }
+  .card li::before{
+    content:'•';
+    position:absolute;left:0;
+    color:var(--green);
+    font-weight:700;
+  }
+  .tag-green .k{color:var(--green);}
+  .tag-navy .k{color:var(--navy);}
+  .tag-amber .k{color:var(--amber);}
+  .tag-red .k{color:var(--red);}
+
+  /* small stat card */
+  .stat-card{
+    position:absolute;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:14px 16px;
+    text-align:left;
+  }
+  .stat-card .num{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:26px;
+    color:var(--green);
+    line-height:1;
+  }
+  .stat-card .lbl{
+    font-size:11px;
+    color:var(--ink-faint);
+    margin-top:4px;
+  }
+
+  /* ===== RESULTS IMAGES ===== */
+  .results-images{
+    position:absolute;
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:10px;
+  }
+  .results-images img{
+    width:100%;
+    height:auto;
+    display:block;
+    border-radius:4px;
+  }
+
+  /* ===== FLOW BOXES (funnel diagram) ===== */
+  .flow-box{
+    position:absolute;
+    padding:10px 18px;
+    border-radius:100px;
+    font-size:12.5px;
+    font-weight:700;
+    text-align:center;
+    white-space:nowrap;
+    border:1.5px solid transparent;
+  }
+  .fb-source{background:var(--navy-bg); color:var(--navy); border-color:#c9d3e2;}
+  .fb-process{background:var(--amber-bg); color:var(--amber); border-color:#eed8b0;}
+  .fb-convert{background:var(--green-bg); color:var(--green); border-color:#bfe3cd;}
+  .fb-circle{
+    border-radius:50%;
+    width:88px;height:88px;
+    display:flex;align-items:center;justify-content:center;
+    padding:0;
+    background:var(--red);
+    color:#fff;
+    font-family:'Bebas Neue',sans-serif;
+    font-size:16px;
+    letter-spacing:.02em;
+  }
+  svg.connector-svg{
+    position:absolute;
+    top:0;left:0;
+    overflow:visible;
+    pointer-events:none;
+  }
+  .conn-path{
+    fill:none;
+    stroke:#c7c5be;
+    stroke-width:1.5;
+  }
+  .conn-arrow{fill:#c7c5be;}
+
+  /* ===== TIMELINE STRIP ===== */
+  .timeline-item{
+    position:absolute;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+  }
+  .timeline-item .month{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    color:var(--green);
+    font-weight:700;
+    letter-spacing:.05em;
+  }
+  .timeline-item .what{
+    font-size:12.5px;
+    color:var(--ink-dim);
+    max-width:190px;
+    line-height:1.45;
+  }
+  .timeline-dot{
+    position:absolute;
+    width:9px;height:9px;
+    border-radius:50%;
+    background:var(--green);
+    border:2px solid #fff;
+    box-shadow:0 0 0 1px var(--green);
+  }
+  .timeline-track{
+    position:absolute;
+    height:1.5px;
+    background:var(--line);
+  }
+
+  /* ===== PACKAGE CARDS ===== */
+  .pkg-board-card{
+    position:absolute;
+    background:var(--card);
+    border:1.5px solid var(--line);
+    border-radius:14px;
+    padding:24px 26px;
+  }
+  .pkg-board-card.hi{border-color:var(--green);}
+  .pkg-board-card .pname{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:24px;
+    letter-spacing:.02em;
+  }
+  .pkg-board-card .pprice{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--green);
+    font-size:13.5px;
+    margin-top:4px;
+    margin-bottom:14px;
+  }
+  .pkg-board-card .psec{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    color:var(--ink-faint);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    margin-top:12px;
+    margin-bottom:5px;
+  }
+  .pkg-board-card ul{list-style:none;}
+  .pkg-board-card li{
+    font-size:12px;
+    color:var(--ink-dim);
+    padding:2px 0 2px 13px;
+    position:relative;
+  }
+  .pkg-board-card li::before{
+    content:'—';
+    position:absolute;left:0;
+    color:var(--green);
+  }
+
+  /* sticky note style */
+  .sticky{
+    position:absolute;
+    background:#fff4c2;
+    border-radius:4px;
+    padding:14px 16px;
+    box-shadow:0 2px 6px rgba(0,0,0,.08);
+    font-size:12.5px;
+    color:#4a4310;
+    line-height:1.5;
+    transform:rotate(-1deg);
+  }
+  .sticky.blue{background:#d3e8ff; color:#1a3c5e; transform:rotate(1deg);}
+  .sticky b{display:block; font-size:11px; text-transform:uppercase; letter-spacing:.05em; margin-bottom:6px; font-family:'JetBrains Mono',monospace;}
+
+  /* minimap hint */
+  .helper-hint{
+    position:fixed;
+    bottom:20px;
+    left:20px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:10px 16px;
+    font-size:11.5px;
+    color:var(--ink-dim);
+    z-index:100;
+    display:flex;
+    gap:14px;
+    align-items:center;
+    font-family:'JetBrains Mono',monospace;
+  }
+  .helper-hint b{color:var(--ink);}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="tb-left">
+    <div class="wordmark">renovoli<span>.</span></div>
+    <div class="doc-title">Growth System — Full Board</div>
+  </div>
+  <div class="tb-right">
+    <button class="reset-btn" id="resetBtn">Reset View</button>
+    <div class="zoom-controls">
+      <button class="zoom-btn" id="zoomOut">−</button>
+      <div class="zoom-pct" id="zoomPct">55%</div>
+      <button class="zoom-btn" id="zoomIn">+</button>
+    </div>
+  </div>
+</div>
+
+<div class="viewport" id="viewport">
+  <div class="canvas" id="canvas">
+
+    <!-- BOARD TITLE -->
+    <div class="board-title">
+      <div class="display">The Renovoli System</div>
+      <div class="sub">Everything we run for you — client acquisition, conversion, operations &amp; support — mapped out end to end.</div>
+    </div>
+
+    <!-- ============ PILLAR 1: CLIENT ACQUISITION ============ -->
+    <div class="pillar-header ph-navy" style="top:190px; left:60px;">Pillar 1 — Client Acquisition</div>
+    <div class="pillar-line" style="top:230px; left:60px; height:900px;"></div>
+
+    <div class="card tag-navy" style="top:250px; left:60px; width:260px;">
+      <span class="k">Foundations</span>
+      <h5>Who We Target</h5>
+      <ul>
+        <li>Niche selection — your ideal client, not everyone</li>
+        <li>Ticket-size-based audience mapping</li>
+        <li>City + surrounding-area targeting</li>
+      </ul>
+    </div>
+
+    <div class="card tag-navy" style="top:250px; left:340px; width:260px;">
+      <span class="k">Foundations</span>
+      <h5>The Offer</h5>
+      <ul>
+        <li>Positioning built around your ticket size</li>
+        <li>Lead-magnet &amp; hook creation</li>
+        <li>Ad copy &amp; creative direction</li>
+      </ul>
+    </div>
+
+    <div class="card tag-navy" style="top:420px; left:60px; width:260px;">
+      <span class="k">Paid System</span>
+      <h5>Meta Ads</h5>
+      <ul>
+        <li>Campaign strategy &amp; setup</li>
+        <li>Creative testing (video, static, carousel)</li>
+        <li>Daily monitoring &amp; optimisation</li>
+      </ul>
+    </div>
+
+    <div class="card tag-navy" style="top:420px; left:340px; width:260px;">
+      <span class="k">Paid System</span>
+      <h5>Funnel</h5>
+      <ul>
+        <li>High-converting landing page</li>
+        <li>Retargeting for warm traffic</li>
+        <li>Ongoing funnel optimisation</li>
+      </ul>
+    </div>
+
+    <div class="card tag-navy" style="top:590px; left:60px; width:540px;">
+      <span class="k">Growth Partner Add-On</span>
+      <h5>Marketing Operations</h5>
+      <ul>
+        <li>Google Ads — search intent capture alongside Meta</li>
+        <li>SEO — organic visibility that compounds over time</li>
+        <li>Website optimisation + Google Business Profile management</li>
+      </ul>
+    </div>
+
+    <!-- ============ PILLAR 2: FUNNEL FLOW DIAGRAM ============ -->
+    <div class="pillar-header ph-amber" style="top:190px; left:700px;">Pillar 2 — How A Lead Moves Through The System</div>
+    <div class="pillar-line" style="top:230px; left:700px; height:900px;"></div>
+
+    <svg class="connector-svg" width="1500" height="700" style="top:270px; left:700px;">
+      <defs>
+        <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" class="conn-arrow"/>
+        </marker>
+      </defs>
+      <!-- source cluster to funnel entry -->
+      <path class="conn-path" d="M110,40 L280,110" marker-end="url(#arrow)"/>
+      <path class="conn-path" d="M110,110 L280,110" marker-end="url(#arrow)"/>
+      <path class="conn-path" d="M110,180 L280,110" marker-end="url(#arrow)"/>
+      <!-- funnel entry to landing page -->
+      <path class="conn-path" d="M400,110 L560,110" marker-end="url(#arrow)"/>
+      <!-- landing page to qualification -->
+      <path class="conn-path" d="M560,110 L760,110" marker-end="url(#arrow)"/>
+      <!-- qualification splits into two outcome categories from the right edge of the pill -->
+      <path class="conn-path" d="M760,90 L840,40" marker-end="url(#arrow)"/>
+      <path class="conn-path" d="M760,130 L840,180" marker-end="url(#arrow)"/>
+    </svg>
+
+    <div class="flow-box fb-source" style="top:280px; left:700px;">Meta Ads</div>
+    <div class="flow-box fb-source" style="top:350px; left:700px;">Instagram</div>
+    <div class="flow-box fb-source" style="top:420px; left:700px;">Referral Retarget</div>
+
+    <div class="flow-box fb-process" style="top:350px; left:980px;">Landing Page</div>
+
+    <div class="flow-box fb-process" style="top:350px; left:1260px;">Lead Qualification<br>(budget · location · timeline)</div>
+
+    <div class="flow-box fb-convert" style="top:280px; left:1540px;">Qualified →<br>Appointment Booked</div>
+    <div class="flow-box fb-amber fb-process" style="top:420px; left:1540px; background:var(--red-bg); color:var(--red); border-color:#f1c8c8;">Not Ready →<br>Nurture Sequence</div>
+
+    <div class="card tag-amber" style="top:590px; left:700px; width:280px;">
+      <span class="k">Behind The Scenes</span>
+      <h5>Nurture Sequence</h5>
+      <p>Leads who aren't ready yet don't get dropped — automated follow-up keeps them warm until timeline matches.</p>
+    </div>
+    <div class="card tag-amber" style="top:590px; left:1000px; width:280px;">
+      <span class="k">Behind The Scenes</span>
+      <h5>SEO + Reviews</h5>
+      <p>Organic visibility and review generation running in parallel, so paid ads aren't the only channel over time.</p>
+    </div>
+    <div class="card tag-amber" style="top:590px; left:1300px; width:280px;">
+      <span class="k">Behind The Scenes</span>
+      <h5>Weekly Optimisation</h5>
+      <p>Every week we review cost-per-lead, qualification rate, and booking rate — and adjust targeting and creative accordingly.</p>
+    </div>
+
+    <div class="sticky" style="top:770px; left:1550px; width:190px;">
+      <b>Why This Matters</b>
+      A ₹2L kitchen enquiry and a ₹15L full-home enquiry get filtered differently — you only see what fits your business.
+    </div>
+
+    <!-- ============ PILLAR 3: LEAD CONVERSION / GROWTH STRATEGY ============ -->
+    <div class="pillar-header ph-green" style="top:1130px; left:60px;">Pillar 3 — Conversion &amp; Growth Strategy</div>
+    <div class="pillar-line" style="top:1170px; left:60px; height:560px;"></div>
+
+    <div class="card tag-green" style="top:1190px; left:60px; width:260px;">
+      <span class="k">Lead Conversion</span>
+      <h5>Qualification System</h5>
+      <ul>
+        <li>Every lead filtered on budget, location, timeline</li>
+        <li>Property type &amp; requirement captured upfront</li>
+        <li>No more chasing unqualified enquiries</li>
+      </ul>
+    </div>
+
+    <div class="card tag-green" style="top:1190px; left:340px; width:260px;">
+      <span class="k">Lead Conversion</span>
+      <h5>Booking Optimisation</h5>
+      <ul>
+        <li>Straight-to-calendar appointment booking</li>
+        <li>Weekly performance improvements</li>
+        <li>Follow-up sequence for no-shows</li>
+      </ul>
+    </div>
+
+    <div class="card tag-green" style="top:1360px; left:60px; width:260px;">
+      <span class="k">Growth Strategy</span>
+      <h5>Your Growth Specialist</h5>
+      <ul>
+        <li>Weekly strategy calls</li>
+        <li>Dedicated account owner — not a shared inbox</li>
+        <li>Proactive recommendations, not just reporting</li>
+      </ul>
+    </div>
+
+    <div class="card tag-green" style="top:1360px; left:340px; width:260px;">
+      <span class="k">Growth Partner Add-On</span>
+      <h5>Sales Systems</h5>
+      <ul>
+        <li>CRM to track every lead through your pipeline</li>
+        <li>Lead automation &amp; nurturing</li>
+        <li>Live reporting dashboard — full visibility</li>
+      </ul>
+    </div>
+
+    <!-- ============ PILLAR 4: CONTENT ENGINE (Growth Partner) ============ -->
+    <div class="pillar-header ph-red" style="top:1130px; left:700px;">Pillar 4 — Content Engine (Growth Partner)</div>
+    <div class="pillar-line" style="top:1170px; left:700px; height:560px;"></div>
+
+    <div class="card tag-red" style="top:1190px; left:700px; width:260px;">
+      <span class="k">Content Engine</span>
+      <h5>Social Media Management</h5>
+      <p>Your feed stops going quiet — consistent posting so enquiries can see real work, not just ads.</p>
+    </div>
+
+    <div class="card tag-red" style="top:1190px; left:980px; width:260px;">
+      <span class="k">Content Engine</span>
+      <h5>Reels &amp; Ad Creatives</h5>
+      <p>Fresh creative supply so ads don't fatigue — new hooks and formats tested continuously.</p>
+    </div>
+
+    <div class="card tag-red" style="top:1360px; left:700px; width:260px;">
+      <span class="k">Content Engine</span>
+      <h5>Content Strategy</h5>
+      <p>A plan behind the posting — not random uploads, but content that supports the ad funnel above.</p>
+    </div>
+
+    <div class="sticky blue" style="top:1360px; left:980px; width:220px;">
+      <b>Note</b>
+      Content Engine + Marketing Operations only kick in on Growth Partner — Accelerator is acquisition-only, by design.
+    </div>
+
+    <!-- ============ RESULTS (SEPARATE FROM PILLAR 1) ============ -->
+    <div class="pillar-header ph-green" style="top:1780px; left:60px;">Results — Not A Promise, A Track Record</div>
+    <div class="pillar-line" style="top:1820px; left:60px; height:1300px;"></div>
+
+    <div class="results-images" style="top:1840px; left:60px; width:1050px;">
+      <img src="assets/proof/results/proof-result-01.jpg" alt="Client dashboard screenshot showing campaign performance and closed revenue" loading="lazy" decoding="async" />
+      <img src="assets/proof/results/proof-result-02.jpg" alt="Client dashboard screenshot showing leads and spend" loading="lazy" decoding="async" />
+      <img src="assets/proof/results/proof-result-03.jpg" alt="Client dashboard screenshot showing campaign performance for another client" loading="lazy" decoding="async" />
+      <img src="assets/proof/results/proof-result-04.jpg" alt="Client dashboard screenshot showing performance summary" loading="lazy" decoding="async" />
+      <img src="assets/proof/results/proof-result-05.jpg" alt="Client dashboard screenshot showing campaign results and spend" loading="lazy" decoding="async" />
+      <img src="assets/proof/results/proof-result-06.jpg" alt="Client dashboard screenshot showing results overview" loading="lazy" decoding="async" />
+      <img src="assets/proof/results/proof-result-07.jpg" alt="Client dashboard screenshot showing a different campaign result" loading="lazy" decoding="async" />
+      <img src="assets/proof/reviews/proof-review-01.jpg" alt="WhatsApp conversation showing a client update and closed project" loading="lazy" decoding="async" />
+      <img src="assets/proof/reviews/proof-review-02.jpg" alt="WhatsApp conversation showing a client update and project value" loading="lazy" decoding="async" />
+      <img src="assets/proof/reviews/proof-review-03.jpg" alt="WhatsApp conversation showing a site visit booked for a qualified lead" loading="lazy" decoding="async" />
+    </div>
+
+    <!-- ============ SUPPORT TIMELINE ============ -->
+    <div class="pillar-header ph-navy" style="top:1780px; left:1220px;">Support Timeline — What Ongoing Contact Looks Like</div>
+
+    <div class="timeline-track" style="top:1870px; left:1220px; width:720px;"></div>
+    <div class="timeline-dot" style="top:1865px; left:1220px;"></div>
+    <div class="timeline-dot" style="top:1865px; left:1460px;"></div>
+    <div class="timeline-dot" style="top:1865px; left:1700px;"></div>
+    <div class="timeline-dot" style="top:1865px; left:1930px;"></div>
+
+    <div class="timeline-item" style="top:1895px; left:1180px;">
+      <div class="month">Week 1</div>
+      <div class="what">Onboarding, Meta Business access, account setup, first campaigns built.</div>
+    </div>
+    <div class="timeline-item" style="top:1895px; left:1420px;">
+      <div class="month">Month 1</div>
+      <div class="what">Testing phase — creative and audience testing, weekly optimisation begins.</div>
+    </div>
+    <div class="timeline-item" style="top:1895px; left:1660px;">
+      <div class="month">Month 2-3</div>
+      <div class="what">Scaling what's working, cutting what isn't, weekly strategy calls throughout.</div>
+    </div>
+    <div class="timeline-item" style="top:1895px; left:1890px;">
+      <div class="month">Ongoing</div>
+      <div class="what">Full reporting dashboard, continuous optimisation, dedicated specialist on your account.</div>
+    </div>
+
+    <!-- ============ PACKAGE SUMMARY ============ -->
+    <div class="pillar-header ph-green" style="top:190px; left:2100px;">The Investment</div>
+    <div class="pillar-line" style="top:230px; left:2100px; height:900px;"></div>
+
+    <div class="pkg-board-card" style="top:260px; left:2100px; width:340px;">
+      <div class="pname">Growth Accelerator</div>
+      <div class="pprice">₹1,50,000 / 90 days</div>
+      <div class="psec">Client Acquisition</div>
+      <ul>
+        <li>Meta Ads strategy &amp; management</li>
+        <li>High-converting landing page</li>
+        <li>Audience research &amp; creative testing</li>
+        <li>Funnel optimisation</li>
+      </ul>
+      <div class="psec">Lead Conversion</div>
+      <ul>
+        <li>Lead qualification system</li>
+        <li>Booking optimisation</li>
+        <li>Weekly performance improvements</li>
+      </ul>
+      <div class="psec">Growth Strategy</div>
+      <ul>
+        <li>Weekly strategy calls</li>
+        <li>Dedicated growth specialist</li>
+      </ul>
+    </div>
+
+    <div class="pkg-board-card hi" style="top:260px; left:2470px; width:340px;">
+      <div class="pname">Growth Partner</div>
+      <div class="pprice">₹1,50,000 / month</div>
+      <div class="psec">Everything in Accelerator, Plus</div>
+      <div class="psec">Marketing Operations</div>
+      <ul>
+        <li>Google Ads · SEO</li>
+        <li>Website optimisation</li>
+        <li>Google Business Profile</li>
+      </ul>
+      <div class="psec">Content Engine</div>
+      <ul>
+        <li>Social media management</li>
+        <li>Content strategy</li>
+        <li>Reels &amp; ad creatives</li>
+      </ul>
+      <div class="psec">Sales Systems</div>
+      <ul>
+        <li>CRM</li>
+        <li>Lead automation &amp; nurturing</li>
+        <li>Reporting dashboard</li>
+      </ul>
+    </div>
+
+    <div class="sticky" style="top:640px; left:2100px; width:220px;">
+      <b>Suggested Path</b>
+      New to ads → start with Accelerator, prove the system in 90 days, then move to Partner.
+    </div>
+    <div class="sticky blue" style="top:640px; left:2350px; width:230px;">
+      <b>Suggested Path</b>
+      Already scaling with a team → Growth Partner from day one, no need to do this in two steps.
+    </div>
+
+  </div>
+</div>
+
+<div class="helper-hint">
+  <span><b>Scroll</b> to zoom</span>
+  <span><b>Drag</b> to pan</span>
+</div>
+
+<script>
+  const viewport = document.getElementById('viewport');
+  const canvas = document.getElementById('canvas');
+  const zoomPct = document.getElementById('zoomPct');
+
+  let scale = 0.55;
+  let panX = -20;
+  let panY = -140;
+  let isDragging = false;
+  let startX, startY;
+
+  function applyTransform(){
+    canvas.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+    zoomPct.textContent = Math.round(scale*100) + '%';
+  }
+
+  function clampScale(s){ return Math.min(1.4, Math.max(0.22, s)); }
+
+  viewport.addEventListener('wheel', (e)=>{
+    e.preventDefault();
+    const rect = viewport.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    const worldX = (mouseX - panX) / scale;
+    const worldY = (mouseY - panY) / scale;
+
+    const delta = -e.deltaY * 0.0015;
+    const newScale = clampScale(scale * (1 + delta));
+
+    panX = mouseX - worldX * newScale;
+    panY = mouseY - worldY * newScale;
+    scale = newScale;
+    applyTransform();
+  }, {passive:false});
+
+  viewport.addEventListener('mousedown', (e)=>{
+    isDragging = true;
+    viewport.classList.add('grabbing');
+    startX = e.clientX - panX;
+    startY = e.clientY - panY;
+  });
+  window.addEventListener('mousemove', (e)=>{
+    if(!isDragging) return;
+    panX = e.clientX - startX;
+    panY = e.clientY - startY;
+    applyTransform();
+  });
+  window.addEventListener('mouseup', ()=>{
+    isDragging = false;
+    viewport.classList.remove('grabbing');
+  });
+
+  document.getElementById('zoomIn').addEventListener('click', ()=>{
+    scale = clampScale(scale + 0.1);
+    applyTransform();
+  });
+  document.getElementById('zoomOut').addEventListener('click', ()=>{
+    scale = clampScale(scale - 0.1);
+    applyTransform();
+  });
+  document.getElementById('resetBtn').addEventListener('click', ()=>{
+    scale = 0.55; panX = -20; panY = -140;
+    applyTransform();
+  });
+
+  // touch support (basic)
+  let lastTouchDist = null;
+  viewport.addEventListener('touchstart', (e)=>{
+    if(e.touches.length===1){
+      isDragging = true;
+      startX = e.touches[0].clientX - panX;
+      startY = e.touches[0].clientY - panY;
+    }
+  });
+  viewport.addEventListener('touchmove', (e)=>{
+    if(e.touches.length===1 && isDragging){
+      panX = e.touches[0].clientX - startX;
+      panY = e.touches[0].clientY - startY;
+      applyTransform();
+    }
+  }, {passive:true});
+  viewport.addEventListener('touchend', ()=>{ isDragging = false; });
+
+  applyTransform();
+</script>
+
+</body>
+</html>
