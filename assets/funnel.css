@@ -831,7 +831,8 @@ footer {
 }
 
 .funnel-grid--optin-only {
-  grid-template-columns: minmax(320px, 560px);
+  align-items: start;
+  grid-template-columns: minmax(320px, 620px) minmax(320px, 430px);
   margin-top: 58px;
 }
 
@@ -1056,6 +1057,12 @@ button.btn--hero:hover {
 
 .video-frame iframe {
   border: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.video-frame wistia-player {
   display: block;
   height: 100%;
   width: 100%;
