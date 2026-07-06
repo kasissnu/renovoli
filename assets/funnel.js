@@ -1,8 +1,11 @@
 (function () {
+  const runtimeConfig = window.RENOVOLI_FUNNEL_CONFIG || {};
   const config = {
     optinEndpoint: "",
+    optinRedirectUrl: "/vsl",
     videoEmbedUrl: "https://www.youtube.com/embed/YOUR_VIDEO_ID",
-    calendlyUrl: "https://calendly.com/YOUR_HANDLE/discovery-call"
+    calendlyUrl: "https://calendly.com/YOUR_HANDLE/discovery-call",
+    ...runtimeConfig
   };
 
   // Drop in real YouTube video IDs here as you get them.
@@ -32,6 +35,20 @@
     }
   }
 
+  function getParams() {
+    return new URLSearchParams(window.location.search);
+  }
+
+  function getPageName() {
+    const pathname = window.location.pathname.replace(/\/+$/, "");
+    if (!pathname || pathname === "/") return "index";
+
+    const parts = pathname.split("/").filter(Boolean);
+    const lastPart = parts.length ? parts[parts.length - 1] : "index";
+
+    return lastPart.replace(/\.html$/i, "");
+  }
+
   function hasTrackedScheduleConversion() {
     try {
       return window.sessionStorage.getItem("renovoliScheduleConversionTracked") === "1";
@@ -48,6 +65,44 @@
 
   function serializeForm(form) {
     return Object.fromEntries(new FormData(form).entries());
+  }
+
+  function getCanonicalPath() {
+    const pathname = window.location.pathname.replace(/index\.html$/i, "").replace(/\/+$/, "");
+    return pathname || "/";
+  }
+
+  function stampSubmissionFields(form) {
+    const submittedAtInput = getFormField(form, "submittedAt");
+    const sourcePageInput = getFormField(form, "sourcePage");
+
+    if (submittedAtInput) {
+      submittedAtInput.value = new Date().toISOString();
+    }
+
+    if (sourcePageInput) {
+      sourcePageInput.value = getCanonicalPath();
+    }
+  }
+
+  function buildLeadPayload(form) {
+    const data = serializeForm(form);
+    const urlParams = new URL(window.location.href);
+    const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
+
+    stampSubmissionFields(form);
+
+    data.submittedAt = getFormField(form, "submittedAt") ? getFormField(form, "submittedAt").value : new Date().toISOString();
+    data.sourcePage = getFormField(form, "sourcePage") ? getFormField(form, "sourcePage").value : getCanonicalPath();
+    data.pageUrl = window.location.href;
+    data.referrer = document.referrer || "";
+    data.userAgent = window.navigator.userAgent;
+
+    keys.forEach(function (key) {
+      data[key] = urlParams.searchParams.get(key) || "";
+    });
+
+    return data;
   }
 
   function getFormField(form, name) {
@@ -185,10 +240,54 @@
   function postIfConfigured(endpoint, data) {
     if (!endpoint) return Promise.resolve();
 
-    return fetch(endpoint, {
-      body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" },
-      method: "POST"
+    return new Promise(function (resolve) {
+      const iframeName = "renovoli-lead-target-" + Date.now();
+      const iframe = document.createElement("iframe");
+      const form = document.createElement("form");
+      let settled = false;
+
+      function cleanup() {
+        if (form.parentNode) form.parentNode.removeChild(form);
+        if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+      }
+
+      function finish() {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        resolve();
+      }
+
+      iframe.name = iframeName;
+      iframe.hidden = true;
+      iframe.setAttribute("aria-hidden", "true");
+      iframe.style.display = "none";
+      document.body.appendChild(iframe);
+
+      iframe.addEventListener("load", function () {
+        window.setTimeout(finish, 150);
+      });
+
+      form.method = "POST";
+      form.action = endpoint;
+      form.target = iframeName;
+      form.hidden = true;
+
+      Object.keys(data).forEach(function (key) {
+        const value = data[key];
+        if (value === undefined || value === null) return;
+
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = String(value);
+        form.appendChild(input);
+      });
+
+      document.body.appendChild(form);
+      form.submit();
+
+      window.setTimeout(finish, 2000);
     });
   }
 
@@ -298,6 +397,7 @@
       const nameInput = getFormField(optinForm, "name");
       const emailInput = getFormField(optinForm, "email");
       const phoneInput = getFormField(optinForm, "phone");
+      const submitButton = optinForm.querySelector('button[type="submit"]');
 
       bindFieldValidation(nameInput, validateName);
       bindFieldValidation(emailInput, validateEmail);
@@ -314,7 +414,7 @@
           return;
         }
 
-        const data = serializeForm(optinForm);
+        const data = buildLeadPayload(optinForm);
 
         window.localStorage.setItem(storageKeys.optin, JSON.stringify(data));
         track("Lead", {
@@ -322,8 +422,13 @@
           content_category: "Interior Designers & Architects"
         });
 
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.setAttribute("aria-busy", "true");
+        }
+
         postIfConfigured(config.optinEndpoint, data).finally(function () {
-          window.location.href = "/vsl";
+          window.location.href = config.optinRedirectUrl || "/vsl";
         });
       });
     }

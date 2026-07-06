@@ -16,6 +16,7 @@
   <meta property="og:image" content="https://www.renovoli.com/assets/result-interics.png" />
   <link rel="stylesheet" href="assets/funnel.css" />
   <link rel="stylesheet" href="assets/heading-font.css" />
+  <script src="assets/funnel-config.js"></script>
   <!-- Meta Pixel Code -->
   <script>
   !function(f,b,e,v,n,t,s)
@@ -72,7 +73,13 @@
 
         <div class="signup-card">
           <div class="signup-intro">Enter your name/email below to get instant access:</div>
-          <form class="form-grid" data-optin-form>
+          <form class="form-grid" name="interior-designer-optin" method="POST" action="/vsl" data-netlify="true" netlify-honeypot="bot-field" data-optin-form>
+            <input type="hidden" name="form-name" value="interior-designer-optin" />
+            <input type="hidden" name="submittedAt" value="" data-submitted-at />
+            <input type="hidden" name="sourcePage" value="" data-source-page />
+            <p class="sr-only" aria-hidden="true">
+              <label>Do not fill this field <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+            </p>
             <div class="field field--hero">
               <label class="sr-only" for="name">Name</label>
               <input id="name" name="name" type="text" autocomplete="name" placeholder="Enter Your Name" required spellcheck="false" />
