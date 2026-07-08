@@ -2130,3 +2130,273 @@ button.btn--hero:hover {
     margin-bottom: 16px;
   }
 }
+
+/* Case studies page */
+.funnel-casestudies .cs-hero {
+  padding: clamp(40px, 7vw, 86px) 0 10px;
+}
+
+.funnel-casestudies .eyebrow.banner {
+  display: none;
+}
+
+.cs-compare {
+  padding-top: 18px;
+}
+
+.cs-compare-grid {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.cs-compare-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 30px;
+  text-align: left;
+}
+
+.cs-compare-tag {
+  background: #f3a843;
+  border-radius: 999px;
+  color: #111;
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
+  text-transform: uppercase;
+}
+
+.cs-compare-card h3 {
+  font-size: 30px;
+  margin-top: 16px;
+}
+
+.cs-compare-loc {
+  color: var(--accent);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  margin: 0 0 18px;
+  text-transform: uppercase;
+}
+
+.cs-compare-stats {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 0 0 18px;
+}
+
+.cs-compare-stats strong {
+  display: block;
+  font-family: var(--heading-font, inherit);
+  font-size: 30px;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.cs-compare-stats span {
+  color: var(--muted);
+  display: block;
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.cs-compare-desc {
+  font-size: 16px;
+  margin-bottom: 14px;
+}
+
+.cs-jump-link {
+  color: var(--accent);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cs-case {
+  border-top: 1px solid var(--line);
+  padding: 60px 0;
+  scroll-margin-top: 24px;
+}
+
+.cs-case--alt {
+  background: rgba(139, 103, 56, 0.04);
+}
+
+.cs-case-head {
+  margin: 0 auto 30px;
+  max-width: 780px;
+  text-align: center;
+}
+
+.cs-case-head h2 {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  justify-content: center;
+}
+
+.cs-case-loc {
+  color: var(--accent);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.cs-stat-row {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0 auto 30px;
+  max-width: 900px;
+}
+
+.cs-stat {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px 12px;
+  text-align: center;
+}
+
+.cs-stat strong {
+  display: block;
+  font-family: var(--heading-font, inherit);
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.cs-stat span {
+  color: var(--muted);
+  display: block;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.cs-details {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  margin: 0 auto 34px;
+  max-width: 860px;
+  padding: 22px 26px;
+}
+
+.cs-details summary {
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+  font-weight: 850;
+  list-style: none;
+  padding: 4px 0;
+  position: relative;
+}
+
+.cs-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.cs-details summary::after {
+  content: "+";
+  float: right;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.cs-details[open] summary::after {
+  content: "\2212";
+}
+
+.cs-details-body {
+  padding-top: 18px;
+}
+
+.cs-details-body h3 {
+  font-size: 19px;
+  margin-top: 22px;
+}
+
+.cs-details-body h3:first-child {
+  margin-top: 4px;
+}
+
+.cs-details-body p,
+.cs-details-body li {
+  font-size: 16px;
+}
+
+.cs-details-body .check-list {
+  margin-top: 14px;
+}
+
+.cs-proof-grid {
+  grid-template-columns: 1fr;
+  margin-top: 18px;
+  max-width: 100%;
+}
+
+.cs-proof-card {
+  width: 100%;
+}
+
+.cs-proof-copy {
+  padding: 16px 0 0;
+  text-align: left;
+}
+
+.cs-proof-copy strong {
+  font-size: 20px;
+}
+
+.cs-proof-caption {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+  margin-top: 8px;
+  max-width: none;
+}
+
+.cs-final-cta {
+  padding-top: 20px;
+}
+
+@media (max-width: 900px) {
+  .cs-compare-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cs-stat-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .cs-compare-card {
+    padding: 22px;
+  }
+
+  .cs-stat-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cs-details {
+    padding: 18px;
+  }
+
+  .cs-case {
+    padding: 42px 0;
+  }
+}
