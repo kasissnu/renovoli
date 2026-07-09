@@ -17,6 +17,13 @@
   <link rel="stylesheet" href="assets/funnel.css" />
   <link rel="stylesheet" href="assets/heading-font.css" />
   <script src="assets/funnel-config.js"></script>
+  <script>
+    try {
+      if (window.location.pathname !== "/schedule") {
+        window.history.replaceState(null, "", "/schedule");
+      }
+    } catch (err) {}
+  </script>
   <script src="assets/meta-events.js"></script>
 </head>
 <body class="funnel-page funnel-schedule">
@@ -52,15 +59,5 @@
 </footer>
 
 <script src="assets/funnel.js"></script>
-<script>
-  window.addEventListener("message", function (event) {
-    if (!event || !event.data || typeof event.data !== "object") return;
-    if (typeof event.origin === "string" && event.origin.indexOf("calendly.com") === -1) return;
-
-    if (event.data.event === "calendly.event_scheduled") {
-      window.location.href = "/thank-you";
-    }
-  });
-</script>
 </body>
 </html>

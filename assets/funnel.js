@@ -63,6 +63,29 @@
     } catch (err) {}
   }
 
+  function bindCalendlyScheduleTracking() {
+    if (!document.body || !document.body.classList.contains("funnel-schedule")) return;
+    if (window.__renovoliCalendlyScheduleTrackingBound) return;
+
+    window.__renovoliCalendlyScheduleTrackingBound = true;
+
+    window.addEventListener("message", function (event) {
+      if (!event || !event.data || typeof event.data !== "object") return;
+      if (typeof event.origin === "string" && event.origin.indexOf("calendly.com") === -1) return;
+      if (event.data.event !== "calendly.event_scheduled") return;
+
+      if (!hasTrackedScheduleConversion()) {
+        track("Schedule", {
+          content_name: "Interior designer strategy call",
+          content_category: "Interior Designers & Architects"
+        });
+        markScheduleConversionTracked();
+      }
+
+      window.location.href = "/thank-you?scheduled=1";
+    });
+  }
+
   function serializeForm(form) {
     return Object.fromEntries(new FormData(form).entries());
   }
@@ -381,14 +404,10 @@
       markScheduleConversionTracked();
     }
 
+    bindCalendlyScheduleTracking();
+
     document.querySelectorAll("[data-calendly-link]").forEach(function (link) {
       link.href = "/schedule";
-      link.addEventListener("click", function () {
-        track("InitiateCheckout", {
-          content_name: "Interior designer strategy call",
-          content_category: "Interior Designers & Architects"
-        });
-      });
     });
 
     const optinForm = document.querySelector("[data-optin-form]");

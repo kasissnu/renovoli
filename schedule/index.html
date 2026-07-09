@@ -90,15 +90,5 @@
 </footer>
 
 <script src="../assets/funnel.js"></script>
-<script>
-  window.addEventListener("message", function (event) {
-    if (!event || !event.data || typeof event.data !== "object") return;
-    if (typeof event.origin === "string" && event.origin.indexOf("calendly.com") === -1) return;
-
-    if (event.data.event === "calendly.event_scheduled") {
-      window.location.href = "/thank-you?scheduled=1";
-    }
-  });
-</script>
 </body>
 </html>
