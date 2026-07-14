@@ -231,16 +231,30 @@
     return true;
   }
 
+  function validateConsent(input) {
+    if (!input) return true;
+
+    if (!input.checked) {
+      setFieldError(input, "Confirm the eligibility criteria before continuing.");
+      return false;
+    }
+
+    setFieldError(input, "");
+    return true;
+  }
+
   function validateFormFields(form) {
     const nameInput = getFormField(form, "name");
     const emailInput = getFormField(form, "email");
     const phoneInput = getFormField(form, "phone");
+    const consentInput = getFormField(form, "eligibilityConsent");
 
     const isNameValid = validateName(nameInput);
     const isEmailValid = validateEmail(emailInput);
     const isPhoneValid = validatePhone(phoneInput);
+    const isConsentValid = validateConsent(consentInput);
 
-    return isNameValid && isEmailValid && isPhoneValid;
+    return isNameValid && isEmailValid && isPhoneValid && isConsentValid;
   }
 
   function bindFieldValidation(input, validate) {
@@ -252,6 +266,19 @@
       } else if (!input.value) {
         setFieldError(input, "");
       }
+    });
+
+    input.addEventListener("blur", function () {
+      input.dataset.touched = "true";
+      validate(input);
+    });
+  }
+
+  function bindCheckboxValidation(input, validate) {
+    if (!input) return;
+
+    input.addEventListener("change", function () {
+      validate(input);
     });
 
     input.addEventListener("blur", function () {
@@ -390,11 +417,56 @@
     }
   }
 
+  function bindOptinModal() {
+    const modal = document.querySelector("[data-optin-modal]");
+    const openTriggers = document.querySelectorAll("[data-open-optin-modal]");
+    if (!modal || !openTriggers.length) return;
+
+    const closeTriggers = modal.querySelectorAll("[data-optin-modal-close]");
+    const firstField = modal.querySelector("input");
+
+    function openModal() {
+      modal.hidden = false;
+      document.body.classList.add("optin-modal-open");
+
+      if (firstField) {
+        window.setTimeout(function () {
+          firstField.focus();
+        }, 50);
+      }
+
+      track("ViewContent", {
+        content_name: "Interior designer opt-in modal opened",
+        content_category: "Interior Designers & Architects"
+      });
+    }
+
+    function closeModal() {
+      modal.hidden = true;
+      document.body.classList.remove("optin-modal-open");
+    }
+
+    openTriggers.forEach(function (btn) {
+      btn.addEventListener("click", openModal);
+    });
+
+    closeTriggers.forEach(function (el) {
+      el.addEventListener("click", closeModal);
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !modal.hidden) {
+        closeModal();
+      }
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     renderVideo();
     renderCalendly();
     renderTestimonials();
     personalizeGreeting();
+    bindOptinModal();
 
     if (getPageName() === "thank-you" && getParams().get("scheduled") === "1" && !hasTrackedScheduleConversion()) {
       track("Schedule", {
@@ -416,16 +488,18 @@
       const nameInput = getFormField(optinForm, "name");
       const emailInput = getFormField(optinForm, "email");
       const phoneInput = getFormField(optinForm, "phone");
+      const consentInput = getFormField(optinForm, "eligibilityConsent");
       const submitButton = optinForm.querySelector('button[type="submit"]');
 
       bindFieldValidation(nameInput, validateName);
       bindFieldValidation(emailInput, validateEmail);
       bindFieldValidation(phoneInput, validatePhone);
+      bindCheckboxValidation(consentInput, validateConsent);
 
       optinForm.addEventListener("submit", function (event) {
         event.preventDefault();
 
-        [nameInput, emailInput, phoneInput].forEach(function (input) {
+        [nameInput, emailInput, phoneInput, consentInput].forEach(function (input) {
           if (input) input.dataset.touched = "true";
         });
 

@@ -88,7 +88,7 @@
         No referrals, cheap leads or guess work. Proven System used by 10+ Interior Designers &amp; Architects 
       </p>
 
-      <div class="funnel-grid funnel-grid--optin-only">
+      <div class="funnel-grid funnel-grid--cta-only">
         <div class="media-panel">
           <div class="media-frame media-frame--gif">
             <img src="assets/gif.gif" alt="Renovoli training teaser GIF" loading="eager" decoding="async" />
@@ -97,7 +97,17 @@
         </div>
 
         <div class="signup-card">
-          <div class="signup-intro">Enter your name, email, and phone below to get instant access:</div>
+          <button type="button" class="btn btn--hero full" data-open-optin-modal>Get Instant Access Now</button>
+          <div class="microcopy microcopy--hero">*your data will not be shared*</div>
+        </div>
+      </div>
+
+      <!-- Opt-in Modal -->
+      <div class="optin-modal" data-optin-modal hidden>
+        <div class="optin-modal-backdrop" data-optin-modal-close></div>
+        <div class="optin-modal-panel" role="dialog" aria-modal="true" aria-labelledby="optin-modal-title">
+          <button type="button" class="optin-modal-close" data-optin-modal-close aria-label="Close">&times;</button>
+          <div class="signup-intro" id="optin-modal-title">Enter your name, email, and phone below to get instant access:</div>
           <form class="form-grid" name="interior-designer-optin" method="POST" action="/vsl" data-netlify="true" netlify-honeypot="bot-field" data-optin-form>
             <input type="hidden" name="form-name" value="interior-designer-optin" />
             <input type="hidden" name="submittedAt" value="" data-submitted-at />
@@ -120,14 +130,107 @@
                 <input id="phone" name="phone" type="tel" autocomplete="tel-national" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" placeholder="10-digit Phone Number" required />
               </div>
             </div>
+            <div class="field field--consent">
+              <label class="consent-check" for="eligibilityConsent">
+                <input id="eligibilityConsent" name="eligibilityConsent" type="checkbox" required />
+                <span>I confirm I've read the eligibility criteria above and have ₹1L+ available to invest in growing my firm.</span>
+              </label>
+            </div>
             <button class="btn btn--hero full" type="submit">Get Instant Access Now</button>
             <div class="microcopy microcopy--hero">*your data will not be shared*</div>
           </form>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="funnel-disclaimer">
-        Disclaimer: This site is not a part of Meta Platforms, Inc. It is not endorsed by Facebook or Instagram. Testimonials and examples are exceptional results and do not guarantee similar outcomes. Results depend on market, pricing, portfolio, and follow-up.
+  <section class="eligibility-section">
+    <div class="container">
+      <span class="eligibility-eyebrow">Eligibility Criteria</span>
+      <div class="eligibility-head">
+        <h2>Who is this Consultation for?</h2>
+        <p>Please ensure you meet the following requirements before scheduling your 1:1 Interior Growth Call.</p>
+      </div>
+
+      <div class="eligibility-grid">
+        <div class="eligibility-card">
+          <div class="eligibility-card-title">
+            <span class="icon">&#10003;</span>
+            You Should Book If&hellip;
+          </div>
+          <ul class="eligibility-list">
+            <li>
+              <span class="mark">&#10003;</span>
+              <div>
+                <strong>Established Firm Owner</strong>
+                <span>You run an interior design or architecture firm — not a solo freelancer just starting out.</span>
+              </div>
+            </li>
+            <li>
+              <span class="mark">&#10003;</span>
+              <div>
+                <strong>Already Closing 3-5 Projects/Month</strong>
+                <span>You have a proven pipeline and consistent client work, not an empty calendar.</span>
+              </div>
+            </li>
+            <li>
+              <span class="mark">&#10003;</span>
+              <div>
+                <strong>₹2cr+ Yearly Revenue</strong>
+                <span>Your firm is already generating steady revenue and you're looking to scale past it.</span>
+              </div>
+            </li>
+            <li>
+              <span class="mark">&#10003;</span>
+              <div>
+                <strong>Growth Mindset</strong>
+                <span>You have ₹1.5L+ available to invest in a system that replaces referrals with predictable demand.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="eligibility-card eligibility-card--no">
+          <div class="eligibility-card-title">
+            <span class="icon">&#10005;</span>
+            Please Do Not Book If&hellip;
+          </div>
+          <ul class="eligibility-list">
+            <li>
+              <span class="mark">&#10005;</span>
+              <div>
+                <strong>You're Just Starting Out</strong>
+                <span>You're a fresher, student, or haven't closed your first few projects yet.</span>
+              </div>
+            </li>
+            <li>
+              <span class="mark">&#10005;</span>
+              <div>
+                <strong>Individual Freelancers</strong>
+                <span>This call is specifically designed for business/studio owners looking to scale.</span>
+              </div>
+            </li>
+            <li>
+              <span class="mark">&#10005;</span>
+              <div>
+                <strong>No Budget for Systems</strong>
+                <span>You are not in a position to invest financially in your business growth yet.</span>
+              </div>
+            </li>
+            <li>
+              <span class="mark">&#10005;</span>
+              <div>
+                <strong>Limited Portfolio</strong>
+                <span>You have completed fewer than 10 projects in your professional career.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="eligibility-cta">
+        <button type="button" class="btn btn--hero full" data-open-optin-modal>Get Instant Access Now</button>
+        <div class="microcopy microcopy--hero">*your data will not be shared*</div>
       </div>
     </div>
   </section>
@@ -135,10 +238,14 @@
 
 <footer>
   <div class="container footer-row">
+    <div class="container funnel-disclaimer">
+      Disclaimer: This site is not a part of Meta Platforms, Inc. It is not endorsed by Facebook or Instagram. Testimonials and examples are exceptional results and do not guarantee similar outcomes. Results depend on market, pricing, portfolio, and follow-up.
+    </div>
     <span>© 2026 Renovoli. All rights reserved.</span>
     <a href="/case-studies">Case Studies</a>
     <a href="terms.html">Terms &amp; Conditions</a>
   </div>
+  
 </footer>
 
 <script src="assets/funnel.js"></script>
