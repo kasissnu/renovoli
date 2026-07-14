@@ -2228,6 +2228,8 @@ button.btn--hero:hover {
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
   padding: 30px;
   text-align: left;
 }
@@ -2294,6 +2296,7 @@ button.btn--hero:hover {
   font-weight: 800;
   text-decoration: underline;
   text-underline-offset: 3px;
+  margin-top: auto;
 }
 
 .cs-case {
@@ -2339,7 +2342,7 @@ button.btn--hero:hover {
 
 .cs-stat {
   background: var(--panel);
-  border: 1px solid var(--line);
+  border: 1px solid var(--color-border-soft);
   border-radius: 8px;
   padding: 18px 12px;
   text-align: center;
@@ -2365,7 +2368,7 @@ button.btn--hero:hover {
   border: 1px solid var(--line);
   border-radius: 10px;
   margin: 0 auto 34px;
-  max-width: 860px;
+  max-width: 940px;
   padding: 22px 26px;
 }
 
@@ -2416,31 +2419,38 @@ button.btn--hero:hover {
   margin-top: 14px;
 }
 
-.cs-proof-grid {
-  grid-template-columns: 1fr;
-  margin-top: 18px;
-  max-width: 100%;
-}
-
 .cs-proof-card {
+  background: var(--panel);
+  border: 1px solid var(--color-border-soft);
+  border-radius: 12px;
+  box-shadow: var(--shadow-card);
+  margin: 0 auto 26px;
+  max-width: 940px;
+  overflow: hidden;
   width: 100%;
 }
 
-.cs-proof-copy {
-  padding: 16px 0 0;
-  text-align: left;
+.cs-proof-card img {
+  background: var(--color-surface-muted);
+  display: block;
+  height: auto;
+  width: 100%;
 }
 
-.cs-proof-copy strong {
-  font-size: 20px;
-}
-
-.cs-proof-caption {
+.cs-proof-card figcaption {
   color: var(--muted);
   font-size: 14px;
   line-height: 1.5;
-  margin-top: 8px;
-  max-width: none;
+  padding: 14px 18px 16px;
+  text-align: left;
+}
+
+.cs-proof-card figcaption strong {
+  color: var(--color-text);
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  margin-bottom: 3px;
 }
 
 .cs-final-cta {
@@ -2471,6 +2481,10 @@ button.btn--hero:hover {
 
 .case-studies-embed .proof-grid--results .proof-copy {
   display: block;
+}
+
+.case-studies-embed .cs-hero {
+  padding-top: 28px;
 }
 
 @media (max-width: 900px) {
