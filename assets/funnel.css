@@ -5,13 +5,23 @@
 }
 
 :root {
-  --bg: #f5f0e7;
-  --panel: #fffaf1;
-  --ink: #111111;
-  --muted: #545454;
-  --line: #ddd2c0;
-  --accent: #8b6738;
-  --dark: #111111;
+  --color-primary: #16262E;
+  --color-primary-light: #24404B;
+  --color-bg: #FFFFFF;
+  --color-bg-alt: #F3E3E1;
+  --color-accent: #D9642D;
+  --color-accent-hover: #BF5424;
+  --color-text: #16262E;
+  --color-text-muted: #5C6B71;
+  --color-success: #2E7D32;
+  --color-error: #B3261E;
+  --bg: var(--color-bg);
+  --panel: var(--color-bg);
+  --ink: var(--color-text);
+  --muted: var(--color-text-muted);
+  --line: #D7E0E3;
+  --accent: var(--color-accent);
+  --dark: var(--color-primary);
   --white: #ffffff;
 }
 
@@ -20,9 +30,7 @@ html {
 }
 
 body {
-  background:
-    radial-gradient(circle at top, rgba(255, 255, 255, 0.5), transparent 42%),
-    linear-gradient(180deg, #f8f3eb 0%, var(--bg) 100%);
+  background: var(--color-bg);
   color: var(--ink);
   font-family: Inter, Arial, sans-serif;
   line-height: 1.5;
@@ -253,7 +261,7 @@ p {
 
 .btn,
 button.btn {
-  background: var(--dark);
+  background: var(--color-accent);
   border: 0;
   border-radius: 999px;
   color: var(--white);
@@ -270,6 +278,7 @@ button.btn {
 
 .btn:hover,
 button.btn:hover {
+  background: var(--color-accent-hover);
   opacity: 0.92;
   transform: translateY(-2px);
 }
@@ -285,8 +294,8 @@ button.btn:hover {
 }
 
 .btn.banner {
-  background: #f3a843;
-  color: #111;
+  background: var(--color-accent);
+  color: var(--white);
   display: block;
   font-size: 17px;
   margin: 0 auto;
@@ -524,7 +533,8 @@ button.btn:hover {
 }
 
 footer {
-  color: #666;
+  background: var(--color-primary);
+  color: var(--white);
   font-size: 14px;
   padding: 28px 0 34px;
 }
@@ -542,7 +552,7 @@ footer {
 }
 
 .footer-row a {
-  color: #555;
+  color: var(--color-bg-alt);
   font-family: inherit;
   font-size: inherit;
 }
@@ -677,26 +687,26 @@ footer {
 /* Screenshot-matched opt-in and VSL pages */
 .funnel-landing,
 .funnel-vsl {
-  --ff-orange: #ff9800;
-  --ff-orange-soft: #ff9f3d;
-  --ff-black: #000000;
-  --ff-text: #050505;
-  --ff-border: #79818b;
-  background: #ffffff;
+  --ff-orange: var(--color-accent);
+  --ff-orange-soft: var(--color-accent);
+  --ff-black: var(--color-primary);
+  --ff-text: var(--color-text);
+  --ff-border: var(--color-primary-light);
+  background: var(--color-bg);
   color: var(--ff-text);
   font-family: "Arial Narrow", Impact, Haettenschweiler, "Franklin Gothic Condensed", Arial, sans-serif;
 }
 
 .funnel-landing p,
 .funnel-vsl p {
-  color: #101010;
+  color: var(--color-text);
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .funnel-landing header,
 .funnel-vsl header,
 .funnel-page header {
-  background: #1b2e3c;
+  background: var(--color-primary);
   border: 0;
   position: static;
 }
@@ -767,8 +777,8 @@ footer {
 }
 
 .funnel-banner {
-  background: var(--ff-orange);
-  color: #000000;
+  background: var(--color-primary);
+  color: var(--color-bg-alt);
   font-family: Arial, Helvetica, sans-serif;
   font-size: clamp(20px, 1.9vw, 34px);
   font-weight: 400;
@@ -782,7 +792,7 @@ footer {
 }
 
 .funnel-title {
-  color: #000000;
+  color: var(--color-text);
   font-family: Impact, "Arial Narrow", Haettenschweiler, "Franklin Gothic Condensed", Arial, sans-serif;
   font-size: clamp(42px, 4.35vw, 75px);
   font-weight: 900;
@@ -801,7 +811,7 @@ footer {
 }
 
 .funnel-title .highlight {
-  color: #ed922e;
+  color: var(--color-accent);
   display: inline;
 }
 
@@ -812,7 +822,7 @@ footer {
 }
 
 .funnel-subcopy {
-  color: #111111;
+  color: var(--color-text);
   font-size: 20px;
   font-weight: 700;
   line-height: 1.35;
@@ -1004,10 +1014,10 @@ footer {
 
 .btn--hero,
 button.btn--hero {
-  background: var(--ff-orange-soft);
-  border: 1px solid #d47e28;
+  background: var(--color-accent);
+  border: 1px solid var(--color-accent);
   border-radius: 0;
-  color: #000000;
+  color: var(--white);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 24px;
   font-weight: 900;
@@ -1019,12 +1029,14 @@ button.btn--hero {
 
 .btn--hero:hover,
 button.btn--hero:hover {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
   opacity: 1;
   transform: none;
 }
 
 .microcopy--hero {
-  color: #111111;
+  color: var(--color-text-muted);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
   font-weight: 800;
@@ -1032,7 +1044,7 @@ button.btn--hero:hover {
 }
 
 .funnel-disclaimer {
-  color: #202020;
+  color: var(--color-bg-alt);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 13px;
   line-height: 1.65;
@@ -1043,17 +1055,18 @@ button.btn--hero:hover {
 
 .funnel-landing footer,
 .funnel-vsl footer {
-  background: #ffffff;
+  background: var(--color-primary);
+  color: var(--white);
 }
 
 .section-rule {
-  border-top: 2px solid #151515;
+  border-top: 2px solid var(--color-primary);
   margin: 32px auto 28px;
   width: 100%;
 }
 
 .step-label {
-  color: #000000;
+  color: var(--color-text);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 34px;
   font-weight: 400;
@@ -1138,7 +1151,7 @@ button.btn--hero:hover {
 }
 
 .section-head--center h2 {
-  color: #000000;
+  color: var(--color-text);
   font-family: Impact, "Arial Narrow", Haettenschweiler, "Franklin Gothic Condensed", Arial, sans-serif;
   font-size: clamp(38px, 3.4vw, 58px);
   font-weight: 900;
@@ -1149,7 +1162,7 @@ button.btn--hero:hover {
 }
 
 .section-head--center p {
-  color: #111111;
+  color: var(--color-text-muted);
   font-size: 26px;
   line-height: 1.35;
   margin: 0 auto;
@@ -1168,8 +1181,8 @@ button.btn--hero:hover {
 
 .proof-card--image,
 .review-card {
-  background: #ffffff;
-  border: 1px solid #1b1b1b;
+  background: var(--color-bg);
+  border: 1px solid var(--color-primary);
   padding: 0;
   text-align: left;
 }
@@ -1186,7 +1199,7 @@ button.btn--hero:hover {
 }
 
 .proof-copy strong {
-  color: #000000;
+  color: var(--color-text);
   display: block;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 22px;
@@ -1194,7 +1207,7 @@ button.btn--hero:hover {
 }
 
 .proof-copy span {
-  color: #444444;
+  color: var(--color-text-muted);
   display: block;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15px;
@@ -1468,7 +1481,7 @@ button.btn--hero:hover {
 
 /* Reference-style VSL page */
 .funnel-vsl {
-  background: #ffffff;
+  background: var(--color-bg);
 }
 
 .funnel-vsl header,
@@ -1480,12 +1493,16 @@ button.btn--hero:hover {
 }
 
 .funnel-vsl header {
-  background: #1b2e3c;
+  background: var(--color-primary);
 }
 
-.funnel-vsl main,
+.funnel-vsl main {
+  background: var(--color-bg);
+}
+
 .funnel-vsl footer {
-  background: #ffffff;
+  background: var(--color-primary);
+  color: var(--white);
 }
 
 .funnel-vsl .container {
@@ -1517,14 +1534,14 @@ button.btn--hero:hover {
 }
 
 .funnel-vsl .funnel-title .highlight {
-  color: #ed922e;
+  color: var(--color-accent);
   text-decoration: underline;
   text-decoration-thickness: 3px;
   text-underline-offset: 5px;
 }
 
 .funnel-vsl .section-rule {
-  border-top: 2px solid #111111;
+  border-top: 2px solid var(--color-primary);
   margin: 50px auto 42px;
 }
 
@@ -1550,7 +1567,7 @@ button.btn--hero:hover {
 }
 
 .funnel-vsl .video-play {
-  background: rgba(237, 146, 46, 0.82);
+  background: var(--color-accent);
   font-size: 50px;
   height: 86px;
   margin-top: 12px;
@@ -1564,11 +1581,11 @@ button.btn--hero:hover {
 
 .funnel-vsl .btn.banner,
 .funnel-vsl .btn--hero.banner {
-  background: #ff9838;
-  border: 2px solid #d77d2d;
+  background: var(--color-accent);
+  border: 2px solid var(--color-accent);
   border-radius: 0;
   box-shadow: none;
-  color: #000000;
+  color: var(--white);
   font-size: clamp(31px, 5.6vw, 38px);
   font-weight: 900;
   line-height: 1.28;
@@ -2399,6 +2416,32 @@ button.btn--hero:hover {
   padding-top: 20px;
 }
 
+.proof-section--home-results {
+  padding-top: 58px;
+}
+
+.proof-section--home-reviews {
+  padding-top: 18px;
+}
+
+.case-studies-embed {
+  margin-top: 20px;
+}
+
+.case-studies-embed .proof-card--image {
+  background: var(--color-bg);
+  border: 1px solid var(--color-primary);
+  text-align: left;
+}
+
+.case-studies-embed .proof-card--image img {
+  box-shadow: none;
+}
+
+.case-studies-embed .proof-grid--results .proof-copy {
+  display: block;
+}
+
 @media (max-width: 900px) {
   .cs-compare-grid {
     grid-template-columns: 1fr;
@@ -2537,13 +2580,14 @@ body.optin-modal-open {
 
 /* Eligibility / qualification section */
 .eligibility-section {
+  background: var(--color-bg);
   padding: 56px 0 20px;
 }
 
 .eligibility-eyebrow {
-  background: #e7ecff;
+  background: var(--color-primary);
   border-radius: 999px;
-  color: #2f3b8f;
+  color: var(--color-bg-alt);
   display: block;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
@@ -2563,7 +2607,7 @@ body.optin-modal-open {
 }
 
 .eligibility-head h2 {
-  color: #000000;
+  color: var(--color-text);
   font-family: var(--heading-font, inherit);
   font-size: clamp(28px, 3.6vw, 44px);
   letter-spacing: -0.02em;
@@ -2572,7 +2616,7 @@ body.optin-modal-open {
 }
 
 .eligibility-head p {
-  color: #444444;
+  color: var(--color-text-muted);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 17px;
   line-height: 1.45;
@@ -2589,16 +2633,16 @@ body.optin-modal-open {
 }
 
 .eligibility-card {
-  background: #ffffff;
-  border: 1px solid #e2e2e2;
+  background: var(--color-bg);
+  border: 1px solid var(--line);
   border-radius: 12px;
-  border-top: 3px solid #2f6fed;
+  border-top: 3px solid var(--color-success);
   padding: 26px 24px;
   text-align: left;
 }
 
 .eligibility-card--no {
-  border-top-color: #e0473e;
+  border-top-color: var(--color-error);
 }
 
 .eligibility-card-title {
@@ -2623,13 +2667,13 @@ body.optin-modal-open {
 }
 
 .eligibility-card .icon {
-  background: #e7edff;
-  color: #2f6fed;
+  background: #e5f2e6;
+  color: var(--color-success);
 }
 
 .eligibility-card--no .icon {
-  background: #fbe4e2;
-  color: #e0473e;
+  background: #f8e4e2;
+  color: var(--color-error);
 }
 
 .eligibility-list {
@@ -2651,15 +2695,15 @@ body.optin-modal-open {
 }
 
 .eligibility-card .mark {
-  color: #2f6fed;
+  color: var(--color-success);
 }
 
 .eligibility-card--no .mark {
-  color: #e0473e;
+  color: var(--color-error);
 }
 
 .eligibility-list strong {
-  color: #111111;
+  color: var(--color-text);
   display: block;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15px;
@@ -2668,7 +2712,7 @@ body.optin-modal-open {
 }
 
 .eligibility-list span {
-  color: #555555;
+  color: var(--color-text-muted);
   display: block;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
@@ -2708,3 +2752,76 @@ body.optin-modal-open {
     margin-top: 28px;
   }
 }
+
+/* ---- Section background rhythm ---- */
+.proof-section--home-reviews {
+  background: var(--color-bg-alt);
+  margin-top: 10px;
+  padding-bottom: 46px;
+}
+
+.proof-section--home-results {
+  padding-bottom: 10px;
+}
+
+/* ---- Mid-page CTA (after client feedback, before eligibility) ---- */
+.mid-page-cta {
+  margin: 46px auto 0;
+  max-width: 460px;
+  text-align: center;
+}
+
+.mid-page-cta .btn--hero.full {
+  width: 100%;
+}
+
+@media (max-width: 560px) {
+  .mid-page-cta {
+    margin-top: 32px;
+  }
+}
+
+/* ---- Founder credibility caption ---- */
+.media-caption {
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.media-caption strong {
+  color: var(--color-text);
+}
+
+/* ---- Proof card caption tightening (result grid) ---- */
+.proof-copy span {
+  line-height: 1.35;
+}
+
+/* ---- Consent checkbox in opt-in modal ---- */
+.field--consent {
+  text-align: left;
+}
+
+.consent-check {
+  align-items: flex-start;
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+}
+
+.consent-check input[type="checkbox"] {
+  accent-color: var(--color-accent);
+  cursor: pointer;
+  flex-shrink: 0;
+  height: 20px;
+  margin-top: 2px;
+  width: 20px;
+}
+
+.consent-check span {
+  color: var(--color-text);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  text-align: left;
+}
+

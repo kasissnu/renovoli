@@ -8,7 +8,7 @@
   <title>Watch This Before You Spend On Ads Again | Renovoli</title>
   <meta name="description" content="Watch the free training for interior designers and architects before booking a strategy call." />
   <meta name="robots" content="noindex, follow" />
-  <meta name="theme-color" content="#f5f0e7" />
+  <meta name="theme-color" content="#16262E" />
   <link rel="canonical" href="https://www.renovoli.com/vsl" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Renovoli" />
@@ -45,7 +45,7 @@
   <!-- End Meta Pixel Code -->
   <script src="../assets/meta-events.js"></script>
 </head>
-<body class="funnel-vsl">
+<body class="funnel-vsl funnel-casestudies">
 
 <header>
   <div class="container nav">
@@ -89,67 +89,7 @@
     </div>
   </section>
 
-  <section class="proof-section">
-    <div class="container">
-      <div class="section-rule section-rule--section"></div>
-      <div class="section-head section-head--center">
-        <h2>Recent Results We've Gotten For Interior Designers &amp; Architects Just Like You:</h2>
-        <p>Proof from campaigns and client conversations below.</p>
-      </div>
-
-      <div class="proof-grid proof-grid--results">
-        <article class="proof-card proof-card--image">
-          <img src="../assets/proof/results/proof-result-07.jpg" alt="Bangalore and Hyderabad client result screenshot" loading="lazy" decoding="async" />
-          <div class="proof-copy">
-            <strong>Bangalore and Hyderabad</strong>
-            <span>Lead-generation proof screenshot</span>
-          </div>
-        </article>
-        <article class="proof-card proof-card--image">
-          <img src="../assets/proof/results/proof-result-01.jpg" alt="Interior design campaign result screenshot 1" loading="lazy" decoding="async" />
-          <div class="proof-copy">
-            <strong>Campaign result 01</strong>
-            <span>Lead-generation proof screenshot</span>
-          </div>
-        </article>
-        <article class="proof-card proof-card--image">
-          <img src="../assets/proof/results/proof-result-02.jpg" alt="Interior design campaign result screenshot 2" loading="lazy" decoding="async" />
-          <div class="proof-copy">
-            <strong>Campaign result 02</strong>
-            <span>Lead-generation proof screenshot</span>
-          </div>
-        </article>
-        <article class="proof-card proof-card--image">
-          <img src="../assets/proof/results/proof-result-03.jpg" alt="Interior design campaign result screenshot 3" loading="lazy" decoding="async" />
-          <div class="proof-copy">
-            <strong>Campaign result 03</strong>
-            <span>Lead-generation proof screenshot</span>
-          </div>
-        </article>
-        <article class="proof-card proof-card--image">
-          <img src="../assets/proof/results/proof-result-04.jpg" alt="Interior design campaign result screenshot 4" loading="lazy" decoding="async" />
-          <div class="proof-copy">
-            <strong>Campaign result 04</strong>
-            <span>Lead-generation proof screenshot</span>
-          </div>
-        </article>
-        <article class="proof-card proof-card--image">
-          <img src="../assets/proof/results/proof-result-05.jpg" alt="Interior design campaign result screenshot 5" loading="lazy" decoding="async" />
-          <div class="proof-copy">
-            <strong>Campaign result 05</strong>
-            <span>Lead-generation proof screenshot</span>
-          </div>
-        </article>
-        <article class="proof-card proof-card--image">
-          <img src="../assets/proof/results/proof-result-06.jpg" alt="Interior design campaign result screenshot 6" loading="lazy" decoding="async" />
-          <div class="proof-copy">
-            <strong>Campaign result 06</strong>
-            <span>Lead-generation proof screenshot</span>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
+  <section id="case-studies" class="case-studies-embed" aria-label="Case studies" data-case-studies></section>
 
   <section class="proof-section proof-section--reviews">
     <div class="container">
@@ -216,5 +156,26 @@
 </footer>
 
 <script src="../assets/funnel.js"></script>
+<script>
+  (async function () {
+    const target = document.querySelector('[data-case-studies]');
+    if (!target) return;
+
+    try {
+      const response = await fetch('/case-studies/');
+      if (!response.ok) throw new Error('Unable to load case studies');
+      const documentFragment = new DOMParser().parseFromString(await response.text(), 'text/html');
+      const caseStudyContent = documentFragment.querySelector('main');
+      if (!caseStudyContent) throw new Error('Case studies content is unavailable');
+
+      caseStudyContent.querySelectorAll('[src^="assets/"]').forEach((element) => {
+        element.setAttribute('src', `../${element.getAttribute('src')}`);
+      });
+      target.replaceChildren(...caseStudyContent.children);
+    } catch (error) {
+      target.innerHTML = '<div class="container center"><p>Case studies are temporarily unavailable. Please refresh the page.</p></div>';
+    }
+  }());
+</script>
 </body>
 </html>
