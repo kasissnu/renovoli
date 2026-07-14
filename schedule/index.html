@@ -8,7 +8,7 @@
   <title>Schedule Your Call | Renovoli</title>
   <meta name="description" content="Schedule a strategy call for the interior designer funnel." />
   <meta name="robots" content="noindex, follow" />
-  <meta name="theme-color" content="#16262E" />
+  <meta name="theme-color" content="#1B2E3C" />
   <link rel="canonical" href="https://www.renovoli.com/schedule" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Renovoli" />
@@ -63,7 +63,14 @@
 <section class="schedule-calendar-section">
   <div class="container">
     <div class="calendly-wrap">
-      <div class="calendly-inline-widget" data-url="https://calendly.com/kasissnu-jk9h/30min?primary_color=d9642d" style="min-width:320px;height:700px;"></div>
+      <div class="calendly-inline-widget" data-url="https://calendly.com/kasissnu-jk9h/30min" style="min-width:320px;height:700px;"></div>
+      <script>
+        (function () {
+          const widget = document.querySelector(".calendly-inline-widget");
+          const accent = getComputedStyle(document.documentElement).getPropertyValue("--color-accent").trim().replace("#", "");
+          if (widget && accent) widget.dataset.url += `?primary_color=${accent}`;
+        }());
+      </script>
       <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
     </div>
   </div>
