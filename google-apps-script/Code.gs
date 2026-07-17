@@ -78,11 +78,20 @@ function normalizePayload(payload) {
     normalized[key] = payload[key] ? String(payload[key]) : "";
   });
 
-  if (!normalized.submittedAt) {
-    normalized.submittedAt = new Date().toISOString();
-  }
+  normalized.submittedAt = formatSubmittedAt(normalized.submittedAt);
 
   return normalized;
+}
+
+function formatSubmittedAt(value) {
+  const date = value ? new Date(value) : new Date();
+  const pattern = "dd/MM HH:mm";
+
+  if (isNaN(date.getTime())) {
+    return Utilities.formatDate(new Date(), "Asia/Kolkata", pattern);
+  }
+
+  return Utilities.formatDate(date, "Asia/Kolkata", pattern);
 }
 
 function getLeadSheet() {

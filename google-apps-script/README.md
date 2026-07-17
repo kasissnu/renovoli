@@ -22,7 +22,7 @@ This folder contains the Google Apps Script that receives the opt-in form data a
 
 The sheet will receive:
 
-- `submittedAt`
+- `submittedAt` formatted as `dd/MM HH:mm`
 - `sourcePage`
 - `name`
 - `email`
